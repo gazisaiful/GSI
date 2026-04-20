@@ -1,0 +1,1127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gazi Saiful Islam — Disaster Risk & Climate Researcher</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=DM+Mono:wght@300;400;500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --earth: #1a1208;
+    --moss: #2d4a2a;
+    --sage: #5a7a52;
+    --clay: #b8622a;
+    --sand: #e8d8b8;
+    --cream: #f5f0e8;
+    --ivory: #faf8f3;
+    --accent: #c8783a;
+    --gold: #d4a853;
+    --text: #1a1208;
+    --muted: #6b5e4a;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Outfit', sans-serif;
+    background: var(--ivory);
+    color: var(--text);
+    overflow-x: hidden;
+  }
+
+  /* ---- NOISE TEXTURE OVERLAY ---- */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.4;
+  }
+
+  /* ---- NAV ---- */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem 4rem;
+    background: rgba(250,248,243,0.88);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(184,98,42,0.15);
+    transition: all 0.3s;
+  }
+
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--moss);
+    letter-spacing: 0.02em;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--clay); }
+
+  /* ---- HERO ---- */
+  #hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-left {
+    background: var(--moss);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 10rem 5rem 6rem 6rem;
+    position: relative;
+  }
+
+  .hero-left::after {
+    content: '';
+    position: absolute;
+    right: -60px;
+    top: 0; bottom: 0;
+    width: 120px;
+    background: var(--moss);
+    clip-path: polygon(0 0, 0% 100%, 100% 100%);
+    z-index: 2;
+  }
+
+  .hero-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.2s forwards;
+  }
+
+  .hero-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3rem, 5vw, 5.5rem);
+    font-weight: 300;
+    line-height: 1.05;
+    color: var(--cream);
+    margin-bottom: 1rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.4s forwards;
+  }
+
+  .hero-name em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .hero-desc {
+    font-size: 1rem;
+    font-weight: 300;
+    color: rgba(232,216,184,0.75);
+    line-height: 1.7;
+    max-width: 380px;
+    margin-bottom: 2.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.6s forwards;
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 1rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.8s forwards;
+  }
+
+  .btn {
+    padding: 0.8rem 2rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.25s;
+    cursor: pointer;
+    border: none;
+  }
+
+  .btn-primary {
+    background: var(--clay);
+    color: white;
+  }
+
+  .btn-primary:hover {
+    background: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(184,98,42,0.35);
+  }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--sand);
+    border: 1px solid rgba(232,216,184,0.4);
+  }
+
+  .btn-outline:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+  }
+
+  .hero-right {
+    background: var(--cream);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8rem 5rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-card {
+    background: white;
+    padding: 3rem;
+    box-shadow: 0 20px 60px rgba(26,18,8,0.12);
+    max-width: 380px;
+    width: 100%;
+    position: relative;
+    opacity: 0;
+    animation: fadeIn 1s 1s forwards;
+  }
+
+  .hero-card::before {
+    content: '';
+    position: absolute;
+    top: -5px; left: -5px;
+    right: 5px; bottom: 5px;
+    border: 2px solid var(--clay);
+    z-index: -1;
+  }
+
+  .card-stat {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.8rem;
+    padding-bottom: 1.8rem;
+    border-bottom: 1px solid rgba(26,18,8,0.08);
+  }
+
+  .card-stat:last-child { border: none; margin-bottom: 0; padding-bottom: 0; }
+
+  .stat-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--clay);
+    margin-bottom: 0.3rem;
+  }
+
+  .stat-value {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--earth);
+    line-height: 1.2;
+  }
+
+  .stat-sub {
+    font-size: 0.82rem;
+    color: var(--muted);
+    margin-top: 0.2rem;
+  }
+
+  /* ---- SECTION BASE ---- */
+  section { padding: 7rem 0; }
+
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 3rem;
+  }
+
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--clay);
+    margin-bottom: 0.8rem;
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.2rem, 4vw, 3.5rem);
+    font-weight: 300;
+    line-height: 1.1;
+    color: var(--earth);
+    margin-bottom: 3rem;
+  }
+
+  .section-title strong {
+    font-weight: 700;
+    font-style: italic;
+  }
+
+  /* ---- ABOUT ---- */
+  #about { background: var(--ivory); }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 6rem;
+    align-items: center;
+  }
+
+  .about-body {
+    font-size: 1.05rem;
+    line-height: 1.85;
+    color: var(--muted);
+    font-weight: 300;
+  }
+
+  .about-body p { margin-bottom: 1.2rem; }
+
+  .about-highlight {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-style: italic;
+    font-weight: 400;
+    color: var(--moss);
+    border-left: 3px solid var(--clay);
+    padding-left: 1.5rem;
+    margin: 2rem 0;
+    line-height: 1.5;
+  }
+
+  .skills-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem;
+  }
+
+  .skill-pill {
+    padding: 0.45rem 1rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    border: 1px solid;
+    transition: all 0.2s;
+  }
+
+  .skill-pill.advanced { border-color: var(--moss); color: var(--moss); background: rgba(45,74,42,0.05); }
+  .skill-pill.intermediate { border-color: var(--clay); color: var(--clay); background: rgba(184,98,42,0.05); }
+  .skill-pill.basic { border-color: var(--muted); color: var(--muted); background: transparent; }
+
+  .skill-pill:hover { transform: translateY(-2px); }
+
+  /* ---- EXPERIENCE ---- */
+  #experience { background: var(--earth); }
+
+  #experience .section-title { color: var(--cream); }
+  #experience .section-label { color: var(--gold); }
+
+  .timeline {
+    position: relative;
+    padding-left: 2.5rem;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--clay), transparent);
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: 3.5rem;
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: all 0.6s;
+  }
+
+  .timeline-item.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .timeline-dot {
+    position: absolute;
+    left: -2.8rem;
+    top: 0.4rem;
+    width: 10px;
+    height: 10px;
+    background: var(--clay);
+    border-radius: 50%;
+    border: 2px solid var(--earth);
+  }
+
+  .timeline-period {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.4rem;
+  }
+
+  .timeline-role {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: var(--cream);
+    line-height: 1.2;
+    margin-bottom: 0.2rem;
+  }
+
+  .timeline-org {
+    font-size: 0.88rem;
+    color: var(--gold);
+    margin-bottom: 1rem;
+    font-weight: 500;
+    opacity: 0.8;
+  }
+
+  .timeline-points {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .timeline-points li {
+    font-size: 0.9rem;
+    color: rgba(232,216,184,0.65);
+    padding-left: 1.2rem;
+    position: relative;
+    line-height: 1.6;
+    font-weight: 300;
+  }
+
+  .timeline-points li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--clay);
+    font-size: 0.8rem;
+  }
+
+  /* ---- EDUCATION ---- */
+  #education { background: var(--cream); }
+
+  .edu-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+
+  .edu-card {
+    background: white;
+    padding: 2.5rem;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s;
+  }
+
+  .edu-card:hover { transform: translateY(-4px); }
+
+  .edu-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--clay), var(--moss));
+  }
+
+  .edu-degree {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--earth);
+    margin-bottom: 0.4rem;
+    line-height: 1.3;
+  }
+
+  .edu-inst {
+    font-size: 0.88rem;
+    color: var(--clay);
+    font-weight: 500;
+    margin-bottom: 0.3rem;
+  }
+
+  .edu-period {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    margin-bottom: 1rem;
+  }
+
+  .edu-cgpa {
+    display: inline-block;
+    background: var(--moss);
+    color: white;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    padding: 0.3rem 0.8rem;
+    letter-spacing: 0.05em;
+    margin-bottom: 1rem;
+  }
+
+  .edu-thesis {
+    font-size: 0.84rem;
+    color: var(--muted);
+    font-style: italic;
+    line-height: 1.6;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem;
+  }
+
+  /* ---- CERTIFICATIONS ---- */
+  #certifications { background: var(--ivory); }
+
+  .cert-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.2rem;
+  }
+
+  .cert-item {
+    padding: 1.5rem;
+    border: 1px solid rgba(26,18,8,0.1);
+    background: white;
+    transition: all 0.25s;
+  }
+
+  .cert-item:hover {
+    border-color: var(--clay);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(184,98,42,0.1);
+  }
+
+  .cert-year {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
+    color: var(--clay);
+    margin-bottom: 0.5rem;
+  }
+
+  .cert-name {
+    font-size: 0.88rem;
+    color: var(--earth);
+    font-weight: 500;
+    line-height: 1.4;
+    margin-bottom: 0.3rem;
+  }
+
+  .cert-org {
+    font-size: 0.76rem;
+    color: var(--muted);
+    font-weight: 300;
+  }
+
+  /* ---- CONFERENCES ---- */
+  #conferences { background: var(--moss); }
+
+  #conferences .section-title { color: var(--cream); }
+  #conferences .section-label { color: var(--gold); }
+
+  .conf-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .conf-item {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    padding: 2rem;
+    transition: background 0.3s;
+  }
+
+  .conf-item:hover { background: rgba(255,255,255,0.1); }
+
+  .conf-year {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+  }
+
+  .conf-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    font-style: italic;
+    color: var(--cream);
+    margin-bottom: 0.4rem;
+    line-height: 1.4;
+  }
+
+  .conf-event {
+    font-size: 0.84rem;
+    color: rgba(232,216,184,0.6);
+    font-weight: 300;
+  }
+
+  /* ---- CONTACT ---- */
+  #contact { background: var(--earth); }
+
+  #contact .section-title { color: var(--cream); }
+  #contact .section-label { color: var(--gold); }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: start;
+  }
+
+  .contact-intro {
+    font-size: 1.05rem;
+    color: rgba(232,216,184,0.7);
+    line-height: 1.8;
+    font-weight: 300;
+  }
+
+  .contact-links {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .contact-link {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    text-decoration: none;
+    transition: all 0.25s;
+    group: true;
+  }
+
+  .contact-link:hover .cl-icon { background: var(--clay); }
+  .contact-link:hover .cl-label { color: var(--gold); }
+
+  .cl-icon {
+    width: 44px;
+    height: 44px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: background 0.25s;
+    font-size: 1.1rem;
+  }
+
+  .cl-content { display: flex; flex-direction: column; }
+
+  .cl-type {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    color: var(--clay);
+    text-transform: uppercase;
+    margin-bottom: 0.15rem;
+  }
+
+  .cl-label {
+    font-size: 0.92rem;
+    color: var(--sand);
+    font-weight: 400;
+    transition: color 0.25s;
+  }
+
+  /* ---- FOOTER ---- */
+  footer {
+    background: #0f0b05;
+    padding: 2rem 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid rgba(255,255,255,0.05);
+  }
+
+  .footer-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem;
+    color: rgba(232,216,184,0.4);
+  }
+
+  .footer-credit {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    color: rgba(232,216,184,0.25);
+  }
+
+  /* ---- ANIMATIONS ---- */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s, transform 0.7s;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ---- DECORATIVE ---- */
+  .deco-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 9rem;
+    font-weight: 700;
+    color: rgba(184,98,42,0.06);
+    position: absolute;
+    right: 2rem;
+    top: -1rem;
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  /* ---- SCROLLBAR ---- */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--earth); }
+  ::-webkit-scrollbar-thumb { background: var(--clay); border-radius: 3px; }
+
+  /* ---- RESPONSIVE ---- */
+  @media (max-width: 900px) {
+    nav { padding: 1rem 2rem; }
+    .nav-links { display: none; }
+    #hero { grid-template-columns: 1fr; }
+    .hero-left { padding: 8rem 2.5rem 4rem; min-height: 60vh; }
+    .hero-left::after { display: none; }
+    .hero-right { padding: 3rem 2rem; }
+    .about-grid, .edu-grid, .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .cert-grid { grid-template-columns: 1fr 1fr; }
+    .container { padding: 0 1.5rem; }
+    section { padding: 5rem 0; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Gazi Saiful Islam</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#certifications">Training</a></li>
+    <li><a href="#conferences">Research</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-left">
+    <p class="hero-tag">Researcher · GIS Analyst · Climate Action</p>
+    <h1 class="hero-name">Gazi<br><em>Saiful</em><br>Islam</h1>
+    <p class="hero-desc">Environmental enthusiast dedicated to evidence-based strategies for community resilience in Disaster Risk Reduction, Climate Change, and Anticipatory Action.</p>
+    <div class="hero-cta">
+      <a href="#experience" class="btn btn-primary">View Work</a>
+      <a href="#contact" class="btn btn-outline">Get in Touch</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-card">
+      <div class="card-stat">
+        <span class="stat-label">Current Role</span>
+        <span class="stat-value">Officer — Advocacy</span>
+        <span class="stat-sub">Right2Grow · Save the Children</span>
+      </div>
+      <div class="card-stat">
+        <span class="stat-label">Education</span>
+        <span class="stat-value">MSS Disaster Management</span>
+        <span class="stat-sub">CGPA 3.86 / 4.00 · BUP</span>
+      </div>
+      <div class="card-stat">
+        <span class="stat-label">Core Focus</span>
+        <span class="stat-value">DRR · Climate Change</span>
+        <span class="stat-sub">Anticipatory Action · GIS · Research</span>
+      </div>
+      <div class="card-stat">
+        <span class="stat-label">Location</span>
+        <span class="stat-value">Dhaka, Bangladesh</span>
+        <span class="stat-sub">Open to remote / field roles</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div>
+        <p class="section-label reveal">Who I Am</p>
+        <h2 class="section-title reveal">Turning <strong>data</strong> into<br>resilient communities</h2>
+        <div class="about-body reveal">
+          <p>I am a researcher and data analyst with a strong foundation in Disaster Management & Resilience, passionate about translating complex environmental data into actionable policy and community-level solutions.</p>
+          <div class="about-highlight">"Dedicated to developing evidence-based strategies that make urban and rural areas more livable, sustainable, and efficient."</div>
+          <p>With hands-on experience at Save the Children, GIS consultancies, and UNICEF-affiliated projects, I bridge the gap between field research and strategic advocacy — combining geospatial analysis, community surveys, and stakeholder engagement.</p>
+        </div>
+      </div>
+      <div class="reveal">
+        <p class="section-label" style="margin-bottom:1.5rem;">Technical Toolkit</p>
+        <div class="skills-cloud">
+          <span class="skill-pill advanced">Kobo Toolbox</span>
+          <span class="skill-pill advanced">Mendeley</span>
+          <span class="skill-pill advanced">Zotero</span>
+          <span class="skill-pill intermediate">ArcGIS Pro</span>
+          <span class="skill-pill intermediate">QGIS</span>
+          <span class="skill-pill intermediate">SPSS</span>
+          <span class="skill-pill intermediate">Stata</span>
+          <span class="skill-pill intermediate">MS Office 365</span>
+          <span class="skill-pill intermediate">Adobe Photoshop</span>
+          <span class="skill-pill intermediate">Adobe Illustrator</span>
+          <span class="skill-pill basic">Python</span>
+          <span class="skill-pill basic">R Programming</span>
+          <span class="skill-pill basic">Google Earth Engine</span>
+        </div>
+        <div style="margin-top:1.5rem; display:flex; gap:1rem; font-family:'DM Mono',monospace; font-size:0.62rem; letter-spacing:0.1em;">
+          <span style="display:flex;align-items:center;gap:0.4rem;color:var(--moss)">■ Advanced</span>
+          <span style="display:flex;align-items:center;gap:0.4rem;color:var(--clay)">■ Intermediate</span>
+          <span style="display:flex;align-items:center;gap:0.4rem;color:var(--muted)">■ Basic</span>
+        </div>
+        <div style="margin-top:2rem; padding:1.5rem; background:var(--cream); border-left:3px solid var(--moss);">
+          <p class="section-label" style="margin-bottom:0.8rem;">Languages</p>
+          <p style="font-size:0.9rem; color:var(--muted);">🇧🇩 Bengali — Native<br>🇬🇧 English — Proficient</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="container" style="position:relative;">
+    <div class="deco-number">EXP</div>
+    <p class="section-label reveal">Professional Journey</p>
+    <h2 class="section-title reveal">Where I've <strong>made<br>an impact</strong></h2>
+
+    <div class="timeline">
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <p class="timeline-period">July 2025 – December 2025</p>
+        <h3 class="timeline-role">Officer — Advocacy, Right2Grow</h3>
+        <p class="timeline-org">Save the Children in Bangladesh</p>
+        <ul class="timeline-points">
+          <li>Developed and implemented evidence-based advocacy strategies and plans</li>
+          <li>Prepared advocacy briefs, ToR, donor reports, case studies, field reports, and concept notes</li>
+          <li>Organized and facilitated events, workshops, and multi-stakeholder consultations</li>
+          <li>Supported media engagement, communications, and government/CSO collaboration</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <p class="timeline-period">March 2025 – July 2025</p>
+        <h3 class="timeline-role">Research Intern — Anticipatory Action</h3>
+        <p class="timeline-org">Save the Children in Bangladesh</p>
+        <ul class="timeline-points">
+          <li>Gathered data through community-focused research surveys, interviews, and analysis</li>
+          <li>Developed evidence-driven knowledge products, advocacy materials, and early action plans</li>
+          <li>Supported ToR development for landslide and cyclone pre-crisis surveys</li>
+          <li>Coordinated with government agencies and partner organizations on risk monitoring</li>
+          <li>Authored donor reports, case studies, and anticipatory action field reports</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <p class="timeline-period">July 2024 – October 2024</p>
+        <h3 class="timeline-role">GIS Analyst</h3>
+        <p class="timeline-org">Geomark Limited, Dhaka</p>
+        <ul class="timeline-points">
+          <li>Comprehensive Development Plan for Nine Upazilas — satellite image processing & geo-referencing</li>
+          <li>Traffic Survey & Transport Master Plan for Gazipur City Corporation</li>
+          <li>Data management, land topographic surveys, and planning document preparation</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <p class="timeline-period">December 2022</p>
+        <h3 class="timeline-role">Field Enumerator</h3>
+        <p class="timeline-org">CECCR · Department of Environment (DoE)</p>
+        <ul class="timeline-points">
+          <li>Assessment of Indigenous Knowledge among vulnerable communities in Satkhira & Jamalpur</li>
+          <li>Conducted field surveys, face-to-face interviews, FGDs, and SPSS data entry</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <p class="timeline-period">June 2021 – July 2021</p>
+        <h3 class="timeline-role">Field Research Facilitator</h3>
+        <p class="timeline-org">UNICEF / IDMVS · University of Dhaka</p>
+        <ul class="timeline-points">
+          <li>Flood Anticipatory Action beneficiary selection and relief data collection</li>
+          <li>Telephonic interviews and primary data gathering for flood-affected populations</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="container">
+    <p class="section-label reveal">Academic Background</p>
+    <h2 class="section-title reveal">Built on a <strong>rigorous</strong><br>foundation</h2>
+    <div class="edu-grid reveal">
+
+      <div class="edu-card">
+        <h3 class="edu-degree">MSS in Disaster Management & Resilience</h3>
+        <p class="edu-inst">Bangladesh University of Professionals (BUP)</p>
+        <p class="edu-period">January 2024 — March 2025</p>
+        <span class="edu-cgpa">CGPA: 3.86 / 4.00</span>
+        <p class="edu-thesis">Master's Thesis: Application of Multidimensional Livelihood Vulnerability Assessment and Mapping using Multi-criteria Decision Analysis — A Case Study on Kalapara Upazila, Bangladesh</p>
+      </div>
+
+      <div class="edu-card">
+        <h3 class="edu-degree">BSS (Hons.) in Disaster and Human Security Management</h3>
+        <p class="edu-inst">Bangladesh University of Professionals (BUP)</p>
+        <p class="edu-period">January 2020 — December 2023</p>
+        <span class="edu-cgpa">CGPA: 3.88 / 4.00</span>
+        <p class="edu-thesis">Bachelor Research: Time-series Analysis of Vegetation Cover Change in Sundarbans and Forest Dependency of Local People — A Geospatial Approach using Google Earth Engine</p>
+      </div>
+
+    </div>
+
+    <!-- Awards -->
+    <div class="reveal" style="margin-top:3rem; display:flex; gap:1.5rem; flex-wrap:wrap;">
+      <div style="background:var(--moss); color:white; padding:1.2rem 2rem; display:flex; flex-direction:column;">
+        <span style="font-family:'DM Mono',monospace; font-size:0.62rem; letter-spacing:0.15em; color:var(--gold); margin-bottom:0.3rem;">AWARD 2023</span>
+        <span style="font-size:0.92rem; font-weight:500;">Dean's Appreciation Letter</span>
+        <span style="font-size:0.78rem; opacity:0.7; margin-top:0.2rem;">Faculty of Arts & Social Sciences, BUP</span>
+      </div>
+      <div style="background:var(--clay); color:white; padding:1.2rem 2rem; display:flex; flex-direction:column;">
+        <span style="font-family:'DM Mono',monospace; font-size:0.62rem; letter-spacing:0.15em; color:rgba(255,255,255,0.6); margin-bottom:0.3rem;">AWARD 2022</span>
+        <span style="font-size:0.92rem; font-weight:500;">Champion — Inter BUP DMX 2.0</span>
+        <span style="font-size:0.78rem; opacity:0.8; margin-top:0.2rem;">Bangladesh University of Professionals</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section id="certifications">
+  <div class="container">
+    <p class="section-label reveal">Training & Certifications</p>
+    <h2 class="section-title reveal">Continuously <strong>learning,<br>always growing</strong></h2>
+    <div class="cert-grid reveal">
+
+      <div class="cert-item">
+        <p class="cert-year">2025</p>
+        <p class="cert-name">Emerging Leaders Graduate Program</p>
+        <p class="cert-org">EMK Center (American Space Dhaka)</p>
+      </div>
+      <div class="cert-item">
+        <p class="cert-year">2024</p>
+        <p class="cert-name">Earth Observation Workshop</p>
+        <p class="cert-org">icddr,b · NASA Lifelines · Save the Children</p>
+      </div>
+      <div class="cert-item">
+        <p class="cert-year">2024</p>
+        <p class="cert-name">Earthquake Risk Assessment</p>
+        <p class="cert-org">Global Earthquake Model (GEM) Foundation</p>
+      </div>
+      <div class="cert-item">
+        <p class="cert-year">2023</p>
+        <p class="cert-name">YouthMappers Summit</p>
+        <p class="cert-org">Bangladesh YouthMappers & Eastern University</p>
+      </div>
+      <div class="cert-item">
+        <p class="cert-year">2023</p>
+        <p class="cert-name">Urban Tree Inventory using i-Tree</p>
+        <p class="cert-org">USAID & US Forest Service</p>
+      </div>
+      <div class="cert-item">
+        <p class="cert-year">2023</p>
+        <p class="cert-name">SPSS Statistical Analysis</p>
+        <p class="cert-org">Dhaka University Research Society (DURS)</p>
+      </div>
+      <div class="cert-item">
+        <p class="cert-year">2023</p>
+        <p class="cert-name">National Retrospective Disaster Loss Databases</p>
+        <p class="cert-org">CRED & NIRAPAD</p>
+      </div>
+      <div class="cert-item">
+        <p class="cert-year">2022</p>
+        <p class="cert-name">Mapping with OpenStreetMap</p>
+        <p class="cert-org">BUP YouthMappers Chapter</p>
+      </div>
+      <div class="cert-item">
+        <p class="cert-year">2022</p>
+        <p class="cert-name">MS PowerPoint & Python</p>
+        <p class="cert-org">Bohubrihi e-learning Platform</p>
+      </div>
+
+    </div>
+
+    <!-- Extracurricular -->
+    <div class="reveal" style="margin-top:4rem;">
+      <p class="section-label" style="margin-bottom:1.5rem;">Leadership & Extracurricular</p>
+      <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:1.2rem;">
+        <div style="padding:1.5rem; background:white; border-top:3px solid var(--moss);">
+          <p style="font-family:'DM Mono',monospace;font-size:0.62rem;color:var(--clay);letter-spacing:0.1em;margin-bottom:0.5rem;">2023–2025</p>
+          <p style="font-weight:600;font-size:0.9rem;margin-bottom:0.3rem;">President</p>
+          <p style="font-size:0.82rem;color:var(--muted);">BUP YouthMappers Chapter<br><span style="font-size:0.76rem;">Trainer, Workshops, Mapping Competitions</span></p>
+        </div>
+        <div style="padding:1.5rem; background:white; border-top:3px solid var(--clay);">
+          <p style="font-family:'DM Mono',monospace;font-size:0.62rem;color:var(--clay);letter-spacing:0.1em;margin-bottom:0.5rem;">2023–2025</p>
+          <p style="font-weight:600;font-size:0.9rem;margin-bottom:0.3rem;">Senior Vice President</p>
+          <p style="font-size:0.82rem;color:var(--muted);">BUP Research Society (BUPRS)<br><span style="font-size:0.76rem;">R&D, National Research Project Contest 2.0</span></p>
+        </div>
+        <div style="padding:1.5rem; background:white; border-top:3px solid var(--gold);">
+          <p style="font-family:'DM Mono',monospace;font-size:0.62rem;color:var(--clay);letter-spacing:0.1em;margin-bottom:0.5rem;">2023–2025</p>
+          <p style="font-weight:600;font-size:0.9rem;margin-bottom:0.3rem;">Vice President</p>
+          <p style="font-size:0.82rem;color:var(--muted);">BUP Disaster Management Forum<br><span style="font-size:0.76rem;">Publications, BUP DMX 3.0 Organizer</span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONFERENCES -->
+<section id="conferences">
+  <div class="container">
+    <p class="section-label reveal">Research & Publications</p>
+    <h2 class="section-title reveal">Contributing to <strong>global<br>knowledge</strong></h2>
+    <div class="conf-list reveal">
+
+      <div class="conf-item">
+        <p class="conf-year">2023 · 6th UIU International Conference on Sustainable Development (ICSD), Dhaka</p>
+        <p class="conf-title">"Evaluating the Food Consumption Score (FCS) and Four Dimensions of Food Security of Farmers Community of Gotia Char in Sirajgonj District, Bangladesh"</p>
+        <p class="conf-event">Research Paper Presentation</p>
+      </div>
+
+      <div class="conf-item">
+        <p class="conf-year">2022 · International Conference on Environmental Protection for Sustainable Development (ICEPSD)</p>
+        <p class="conf-title">"Vulnerability Assessment of Earthquake in Motijheel Commercial Area: Determining the Existing Problem of Bangladesh Compared to other Developed Countries"</p>
+        <p class="conf-event">Poster Presentation</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="contact-grid">
+      <div>
+        <p class="section-label reveal">Get In Touch</p>
+        <h2 class="section-title reveal">Let's collaborate<br>on <strong>resilience</strong></h2>
+        <p class="contact-intro reveal">Whether you're working on disaster risk reduction, climate adaptation, anticipatory action, or GIS-based research, I'm always open to meaningful conversations and collaborative opportunities.</p>
+      </div>
+      <div class="contact-links reveal">
+        <a href="mailto:gazisaiful0803@gmail.com" class="contact-link">
+          <div class="cl-icon">✉</div>
+          <div class="cl-content">
+            <span class="cl-type">Email</span>
+            <span class="cl-label">gazisaiful0803@gmail.com</span>
+          </div>
+        </a>
+        <a href="tel:+8801532365746" class="contact-link">
+          <div class="cl-icon">☎</div>
+          <div class="cl-content">
+            <span class="cl-type">Phone</span>
+            <span class="cl-label">+880 1532 365746</span>
+          </div>
+        </a>
+        <a href="https://www.linkedin.com/in/gazisaiful" target="_blank" class="contact-link">
+          <div class="cl-icon">in</div>
+          <div class="cl-content">
+            <span class="cl-type">LinkedIn</span>
+            <span class="cl-label">linkedin.com/in/gazisaiful</span>
+          </div>
+        </a>
+        <a href="#" class="contact-link">
+          <div class="cl-icon">📍</div>
+          <div class="cl-content">
+            <span class="cl-type">Location</span>
+            <span class="cl-label">96 Asad Garden, Rayer Bazar, Dhaka-1209</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-name">Gazi Saiful Islam · Disaster Risk Researcher</span>
+  <span class="footer-credit">Dhaka, Bangladesh · 2025</span>
+</footer>
+
+<script>
+  // Intersection observer for reveal animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(el => {
+      if (el.isIntersecting) {
+        el.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.reveal, .timeline-item').forEach(el => observer.observe(el));
+
+  // Stagger timeline items
+  document.querySelectorAll('.timeline-item').forEach((el, i) => {
+    el.style.transitionDelay = `${i * 0.1}s`;
+  });
+
+  // Nav scroll effect
+  window.addEventListener('scroll', () => {
+    const nav = document.querySelector('nav');
+    nav.style.boxShadow = window.scrollY > 50 ? '0 2px 20px rgba(26,18,8,0.12)' : 'none';
+  });
+</script>
+</body>
+</html>
